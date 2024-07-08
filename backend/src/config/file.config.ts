@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 config();
 
 const FILE_CONFIG: FileConfig = {
-  maxFileSize: 5 * 1024 * 1024,
+  maxFileSize: 10 * 1024 * 1024,
 };
 
 export interface FileConfig {
