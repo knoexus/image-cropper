@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Upload,
   Button,
@@ -33,7 +33,7 @@ const { Content } = Layout;
 
 const ImageUploader = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [uploadedFileKey, setUploadedFileKey] = useState<string | null>(null);
+  const [uploadedFileKey, setUploadedFileKey] = useState<string>("");
   const [cropParams, setCropParams] = useState<CropParams>({
     x: 0,
     y: 0,
@@ -41,6 +41,12 @@ const ImageUploader = () => {
     height: 100,
   });
   const [croppedImageUrl, setCroppedImageUrl] = useState<string>("");
+
+  useEffect(() => {
+    if (uploadedFileKey) {
+      setCroppedImageUrl("");
+    }
+  }, [uploadedFileKey]);
 
   const handleBeforeUpload = (file: RcFile) => {
     if (!allowedMimeTypes.includes(file.type)) {
@@ -64,7 +70,7 @@ const ImageUploader = () => {
       message.success("Image uploaded successfully!");
     } else if (file.status === "removed") {
       setFileList([]);
-      setUploadedFileKey(null);
+      setUploadedFileKey("");
     } else {
       setFileList([fileList[fileList.length - 1]]);
     }
