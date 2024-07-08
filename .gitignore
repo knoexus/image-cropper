@@ -1,0 +1,51 @@
+# Compiled ozutput
+*/dist/*
+*/node_modules/*
+
+# Logs
+logs*
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+.env
+.env.production
+.env.staging
+.env.development
+.env.local
+.env.local.*
+
+# Extra
+backend/temp/
+backups/
+/database-init.sh
+/database-reset.sh
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.session.sql
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+/*.code-workspace
+
+/node_modules
