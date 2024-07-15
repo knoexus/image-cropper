@@ -28,6 +28,7 @@ interface ImageUploadResponse {
 
 const API_URL = import.meta.env.VITE_API_URL;
 const allowedMimeTypes = ["image/jpeg", "image/png"];
+const storePrefix = "store/";
 
 const { Content } = Layout;
 
@@ -98,6 +99,21 @@ const ImageUploader = () => {
     message.success("Image cropped successfully!");
   };
 
+  const downloadImage = async () => {
+    const imageResponse = await fetch(croppedImageUrl, { method: "GET" });
+    const blob = await imageResponse.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = uploadedFileKey.replace(new RegExp(`^${storePrefix}`), "");
+    document.body.appendChild(a);
+
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <Layout style={{ minHeight: "100vh", justifyContent: "center" }}>
       <Content>
@@ -162,18 +178,16 @@ const ImageUploader = () => {
                 </Form.Item>
               </Form>
               {croppedImageUrl && (
-                <Flex
-                  vertical
-                  style={{
-                    marginTop: 20,
-                  }}
-                >
+                <Flex vertical gap={20} style={{ marginTop: 20 }}>
                   <h3>Cropped Image:</h3>
                   <img
                     src={croppedImageUrl}
                     alt="Cropped"
                     style={{ maxWidth: "100%" }}
                   />
+                  <Button type="primary" onClick={downloadImage}>
+                    Download
+                  </Button>
                 </Flex>
               )}
             </div>
