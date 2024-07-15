@@ -14,7 +14,7 @@ import DO_CONFIG from '@App/config/do.config';
 import { Readable } from 'stream';
 import { CropImageDto } from './dto/crop-image.dto';
 
-export interface UploadImageResponse {
+export interface ImageResponse {
   key: string;
   url: string;
 }
@@ -33,7 +33,7 @@ export class ImagesService {
     });
   }
 
-  async uploadImage(file: FileModel): Promise<UploadImageResponse> {
+  async uploadImage(file: FileModel): Promise<ImageResponse> {
     const fileContent = file.buffer;
     const Bucket = DO_CONFIG.bucketName;
     const Key = `${DO_CONFIG.bucketUploadDirName}/${uuidv4()}${extname(file.originalname)}`;
@@ -54,7 +54,7 @@ export class ImagesService {
     };
   }
 
-  async cropImage(cropImageDto: CropImageDto): Promise<UploadImageResponse> {
+  async cropImage(cropImageDto: CropImageDto): Promise<ImageResponse> {
     const getObjectCommand = new GetObjectCommand({
       Bucket: DO_CONFIG.bucketName,
       Key: cropImageDto.key,

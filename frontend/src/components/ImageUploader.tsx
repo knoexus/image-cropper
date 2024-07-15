@@ -21,7 +21,7 @@ interface CropParams {
   height: number | null;
 }
 
-interface ImageUploadResponse {
+interface ImageResponse {
   key: string;
   url: string;
 }
@@ -94,7 +94,7 @@ const ImageUploader = () => {
       return;
     }
 
-    const data = (await response.json()) as ImageUploadResponse;
+    const data = (await response.json()) as ImageResponse;
     setCroppedImageUrl(data.url);
     message.success("Image cropped successfully!");
   };
